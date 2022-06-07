@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import {
   Controller,
   Get,
@@ -32,7 +33,7 @@ export class BooksController {
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateBookDto: UpdateBookDto) {
-    return this.booksService.update({ id: +id }, updateBookDto);
+    return this.booksService.update({ id: +id }, updateBookDto,);
   }
 
   @Delete(':id')

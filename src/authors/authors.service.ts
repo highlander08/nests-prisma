@@ -1,8 +1,8 @@
+/* eslint-disable prettier/prettier */
+import { Prisma } from '.prisma/client';
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
-import { CreateAuthorDto } from './dto/create-author.dto';
 import { UpdateAuthorDto } from './dto/update-author.dto';
-import { Prisma } from '.prisma/client';
 
 @Injectable()
 export class AuthorsService {
@@ -17,16 +17,21 @@ export class AuthorsService {
   findAll() {
     return this.prisma.author.findMany();
   }
-
-  findOne(id: number) {
-    return `This action returns a #${id} author`;
+  
+  findOne(authorWhereUniqueInput: Prisma.AuthorWhereUniqueInput) {
+    return this.prisma.author.findUnique({where: authorWhereUniqueInput});
   }
 
-  update(id: number, updateAuthorDto: UpdateAuthorDto) {
-    return `This action updates a #${id} author`;
+  update(where: Prisma.AuthorWhereUniqueInput, data: Prisma.AuthorUpdateInput) {
+    return this.prisma.author.update( {
+      data,
+      where,
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} author`;
+  remove(where: Prisma.AuthorWhereUniqueInput) {
+    return this.prisma.author.delete({
+      where,
+    });
   }
 }
